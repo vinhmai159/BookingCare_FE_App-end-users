@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import icLogo from '../../../../images/appIcon/ic_logo.png';
 import icMenu from '../../../../images/appIcon/ic_menu.png';
-import {connect} from 'react-redux';
 const {height} = Dimensions.get('window');
 
 class Header extends Component {
@@ -33,23 +32,12 @@ class Header extends Component {
           <Text style={styles.textStyle}>Wearing a Dress</Text>
           <Image source={icLogo} style={styles.iconStyle}></Image>
         </View>
-        <View style={styles.wrapper2}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="What do you want to buy?"
-            onChangeText={(text) => this.setState({text})}
-            onFocus={this.props.setTab}
-            onPress={this.props.dispatch({
-              type: 'Search',
-              key: this.state.text,
-            })}
-          />
-        </View>
+        <View style={styles.wrapper2}></View>
       </View>
     );
   }
 }
-export default connect()(Header);
+export default Header;
 const styles = StyleSheet.create({
   text: {
     borderWidth: 1,

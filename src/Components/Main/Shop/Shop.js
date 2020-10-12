@@ -13,7 +13,7 @@ import Cart from './Cart/Cart';
 import Search from './Search/Search';
 import Home from './Home/Home';
 import Contact from './Contact/Contact';
-const {height} = Dimensions.get('window');
+
 import Header from './Header';
 import iconHome from '../../../../images/appIcon/home.png';
 import iconHomeCLick from '../../../../images/appIcon/home0.png';
@@ -23,7 +23,15 @@ import iconSearch from '../../../../images/appIcon/search.png';
 import iconSearchCLick from '../../../../images/appIcon/search0.png';
 import iconContact from '../../../../images/appIcon/contact.png';
 import iconContactCLick from '../../../../images/appIcon/contact0.png';
-import {connect} from 'react-redux';
+
+import icHome from '../../../../image/House0.png';
+// import icHomeCLick from '../../../../image/home0.png';
+// import icNofity from '../../../../image/notification.png';
+// import icNofityClick from '../../../../image/notification0.png';
+// import icSearch from '../../../../image/Search.png';
+// import icSearchClick from '../../../../image/Search0.png';
+// import icContact from '../../../../image/User.png';
+// import icContactClick from '../../../../image/User0.png';
 
 class Shop extends Component {
   constructor(props) {
@@ -69,7 +77,6 @@ class Shop extends Component {
             renderIcon={() => (
               <Image source={iconCartCLick} style={styles.iconStyleNavigator} />
             )}
-            badgeText={myValue.length}
             renderSelectedIcon={() => (
               <Image source={iconCart} style={styles.iconStyleNavigator} />
             )}
@@ -150,7 +157,4 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state) {
-  return {myValue: state.cartArray};
-}
-export default connect(mapStateToProps)(Shop);
+export default Shop;

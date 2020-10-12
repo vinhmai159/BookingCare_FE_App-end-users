@@ -12,20 +12,12 @@ import little from '../../../../../images/temp/little.jpg';
 import maxi from '../../../../../images/temp/maxi.jpg';
 import party from '../../../../../images/temp/party.jpg';
 import {useNavigation} from '@react-navigation/native';
-const {height, width} = Dimensions.get('window');
-const url = 'http://192.168.1.31/WebService/app/images/type/';
+const {height} = Dimensions.get('window');
+
 const Category: () => React$Node = () => {
   const navigation = useNavigation();
   const [value, setvalue] = useState([]);
-  const [value2, setvalue2] = useState([]);
-  useEffect(() => {
-    fetch('http://192.168.1.31/WebService/app/index.php')
-      .then((response) => response.json())
-      .then((json) => {
-        setvalue(json.type);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+
   return (
     <View style={styles.wrapper}>
       <View style={{flex: 1, justifyContent: 'center'}}>
@@ -41,27 +33,17 @@ const Category: () => React$Node = () => {
                 })
               }
               key={e.id}>
-              <Image
-                source={{
-                  uri: url + e.image,
-                }}
-                style={styles.bannerImageStyle}></Image>
+              <Image style={styles.bannerImageStyle}></Image>
             </TouchableOpacity>
           ))}
         </Swiper>
       </View>
     </View>
-    // <View>
-    //   <TouchableOpacity onPress={() => navigation.navigate('ProductDetail')}>
-    //     <Text>Vien</Text>
-    //   </TouchableOpacity>
-    // </View>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
-    //   955x465
     height: height * 0.32,
     backgroundColor: 'white',
     shadowColor: '#424242',
