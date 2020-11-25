@@ -8,8 +8,8 @@ import {
   TextInput,
   StyleSheet,
 } from 'react-native';
-import icLogo from '../../../../images/appIcon/ic_logo.png';
-import icMenu from '../../../../images/appIcon/ic_menu.png';
+import {connect} from 'react-redux';
+import icMenu from '../../../../image/menu.png';
 const {height} = Dimensions.get('window');
 
 class Header extends Component {
@@ -17,27 +17,45 @@ class Header extends Component {
     super(props);
     this.state = {text: ''};
   }
+
   render() {
     return (
       <View
         style={{
           height: height / 8,
-          backgroundColor: '#088A68',
+          backgroundColor: '#FEB04A',
           padding: 13,
         }}>
         <View style={styles.wrapper1}>
           <TouchableOpacity onPress={this.props.onOpen}>
             <Image source={icMenu} style={styles.iconStyle}></Image>
           </TouchableOpacity>
-          <Text style={styles.textStyle}>Wearing a Dress</Text>
-          <Image source={icLogo} style={styles.iconStyle}></Image>
+          <Text style={styles.textStyle}>BOOKING CARE</Text>
+          <View style={styles.wrapperWrong} />
         </View>
-        <View style={styles.wrapper2}></View>
+        <View style={styles.wrapper2}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Search"
+            onChangeText={(text) => this.setState({text})}
+            onTouchStart={this.props.setTab}
+            onSubmitEditing={() => {
+              this.props.setTab(this.state.text);
+            }}
+          />
+        </View>
       </View>
     );
   }
 }
-export default Header;
+
+// function mapStateToProps(state) {
+//   return {
+//     dataLogin: state.dataLogin,
+//     dataInforUser: state.dataInforUser,
+//   };
+// }
+export default connect()(Header);
 const styles = StyleSheet.create({
   text: {
     borderWidth: 1,
@@ -52,14 +70,15 @@ const styles = StyleSheet.create({
     height: 25,
   },
   textInput: {
+    marginTop: 10,
     height: 35,
     width: 370,
     backgroundColor: 'white',
     borderColor: '#808080',
     borderWidth: 1,
     paddingLeft: 20,
-
     fontSize: 13,
+    borderRadius: 10,
   },
   wrapper1: {
     flex: 1,
@@ -67,13 +86,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   wrapper2: {
-    flexDirection: 'row',
     flex: 1,
+    flexDirection: 'row',
     alignItems: 'center',
   },
   textStyle: {
     fontSize: 22,
     fontFamily: 'monospace',
-    color: 'white',
+    color: 'black',
+  },
+  wrapperWrong: {
+    width: 25,
+    height: 25,
   },
 });

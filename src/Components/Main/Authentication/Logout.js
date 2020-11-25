@@ -2,11 +2,16 @@ import React from 'react';
 
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-const Logout = () => {
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+const Logout = (props) => {
   const navigation = useNavigation();
+
   return (
     <View style={{paddingTop: 140}}>
-      <TouchableOpacity style={styles.Button}>
+      <TouchableOpacity
+        style={styles.Button}
+        onPress={() => navigation.navigate('Authentication')}>
         <Text style={styles.Text}>Sign In</Text>
       </TouchableOpacity>
     </View>
@@ -25,7 +30,7 @@ const styles = StyleSheet.create({
   Text: {
     fontSize: 18,
     fontFamily: 'monospace',
-    color: '#088A68',
+    color: 'black',
   },
 });
-export default Logout;
+export default connect()(Logout);

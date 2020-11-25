@@ -10,24 +10,46 @@ import {
 import Shop from './Shop/Shop';
 
 import Drawer from 'react-native-drawer';
-import profileImage from '../../../images/temp/profile.png';
+import profileImage from '../../../image/icons8-user-male-104.png';
 import {useNavigation} from '@react-navigation/native';
 import Login from './Authentication/Login';
 import Logout from './Authentication/Logout';
+import {connect} from 'react-redux';
+// import GetDataLogin from '../../AsyncStorage/GetDataLogin';
+import AsyncStorage from '@react-native-community/async-storage';
+import {LogBox} from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 const Main = (props) => {
   const navigation = useNavigation();
-
   const [value, setvalue] = React.useState();
-  const [ValueLogin, setValueLogin] = useState(true);
+  const [ValueLogin, setValueLogin] = useState(false);
+  const {dataCheckLoginSuccess} = props;
+
   const closeControlPanel = () => {
     value.close();
   };
   const openControlPanel = () => {
     value.open();
   };
+  const [dataUser, setDataUser] = useState({});
 
-  const main = ValueLogin ? <Login /> : <Logout />;
+  useEffect(() => {
+    dataTemp();
+  });
+  const dataTemp = () => {
+    if (props.dataLogin.accessToken) {
+      props.dispatch({
+        type: 'setLoginSuccess',
+      });
+    } else {
+      props.dispatch({
+        type: 'setLogout',
+      });
+    }
+  };
+  const main = dataCheckLoginSuccess ? <Login /> : <Logout />;
 
   return (
     <View style={{flex: 1}}>
@@ -37,8 +59,12 @@ const Main = (props) => {
         ref={(ref) => setvalue(ref)}
         content={
           <View style={styles.wrapper}>
-            <Image source={profileImage} style={styles.ImageStyle}></Image>
-
+            <TouchableOpacity onPress={dataTemp}>
+              <Image source={profileImage} style={styles.ImageStyle}></Image>
+            </TouchableOpacity>
+            <Text style={styles.textUSer}>
+              Hello {props.dataLogin.fistName}
+            </Text>
             {main}
           </View>
         }>
@@ -47,12 +73,18 @@ const Main = (props) => {
     </View>
   );
 };
+function mapStateToProps(state) {
+  return {
+    dataCheckLoginSuccess: state.dataCheckLoginSuccess,
+    dataLogin: state.dataLogin,
+  };
+}
+export default connect(mapStateToProps)(Main);
 
-export default Main;
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#088A68',
+    backgroundColor: '#FEB04A',
     borderRightWidth: 4,
     borderColor: 'white',
     alignItems: 'center',
@@ -61,7 +93,7 @@ const styles = StyleSheet.create({
   ImageStyle: {
     height: 150,
     width: 150,
-    borderRadius: 75,
+    borderRadius: 50,
   },
   Button: {
     height: 50,
@@ -80,7 +112,7 @@ const styles = StyleSheet.create({
   textUSer: {
     fontSize: 15,
     fontFamily: 'monospace',
-    color: 'white',
+    color: 'black',
     paddingTop: 15,
     paddingBottom: 100,
   },

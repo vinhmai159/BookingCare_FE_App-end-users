@@ -7,7 +7,6 @@ import {
   StyleSheet,
   TextInput,
 } from 'react-native';
-import backSpecial from '../../../images/appIcon/backs.png';
 import {useNavigation} from '@react-navigation/native';
 
 const ChangeInfor = (props) => {

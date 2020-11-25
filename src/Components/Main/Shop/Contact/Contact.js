@@ -1,14 +1,28 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Image,
+} from 'react-native';
+import React, {Component, useState} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import ContactView from './ContactView';
+import COntactUpdates from './ContactUpdate';
 
-const {width} = Dimensions.get('window');
+const Stack = createStackNavigator();
 const Contact = () => {
-  const {wrapper} = styles;
-  return <View style={wrapper}></View>;
+  return (
+    <NavigationContainer independent={true}>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="ContactView" component={ContactView} />
+        <Stack.Screen name="COntactUpdates" component={COntactUpdates} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {flex: 1, backgroundColor: 'yellow'},
-});
 
 export default Contact;

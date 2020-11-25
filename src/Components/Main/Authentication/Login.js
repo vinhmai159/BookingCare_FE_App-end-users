@@ -2,8 +2,34 @@ import React from 'react';
 
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-const Login = () => {
+import {connect} from 'react-redux';
+import setDataLogin from '../../../AsyncStorage/SaveDataLogin';
+
+const Login = (props) => {
   const navigation = useNavigation();
+  const handleLogOut = () => {
+    props.dispatch({
+      type: 'setDataLogin',
+      data: {
+        accessToken: '',
+        email: '',
+        address: '',
+        gender: '',
+        birthday: '',
+        fistName: '',
+        lastName: '',
+        role: '',
+        createAt: '',
+        updateAt: '',
+      },
+    });
+    console.log('LogOut');
+    props.dispatch({
+      type: 'setLogout',
+    });
+    setDataLogin('');
+  };
+
   return (
     <View style={{paddingTop: 100, alignItems: 'center'}}>
       <TouchableOpacity style={styles.Button}>
@@ -16,7 +42,7 @@ const Login = () => {
         <Text style={styles.Text}>B</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.Button}>
+      <TouchableOpacity style={styles.Button} onPress={handleLogOut}>
         <Text style={styles.Text}>Sign Out</Text>
       </TouchableOpacity>
     </View>
@@ -35,7 +61,13 @@ const styles = StyleSheet.create({
   Text: {
     fontSize: 18,
     fontFamily: 'monospace',
-    color: '#088A68',
+    color: 'black',
   },
 });
-export default Login;
+function mapStateToProps(state) {
+  return {
+    dataCheckLoginSuccess: state.dataCheckLoginSuccess,
+    dataLogin: state.dataLogin,
+  };
+}
+export default connect(mapStateToProps)(Login);

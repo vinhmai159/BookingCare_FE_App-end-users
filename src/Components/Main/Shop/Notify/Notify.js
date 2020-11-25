@@ -10,20 +10,20 @@ import {
 import React, {Component, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import ListProduct from '../ListProductDetail/ListProduct';
+import DoctorDetail from '../Detail/DoctorDetail';
 
-import CartView from './CartView';
+import NotifyView from './NotifyView';
 
 const Stack = createStackNavigator();
-const Cart = () => {
+const Notify = () => {
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Cart" component={CartView} />
-        <Stack.Screen name="ListProduct" component={ListProduct} />
+        <Stack.Screen name="Cart" component={NotifyView} />
+        <Stack.Screen name="DoctorDetail" component={DoctorDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-export default Cart;
+export default Notify;

@@ -9,30 +9,23 @@ import {
 } from 'react-native';
 import React, {Component, useState} from 'react';
 import TabNavigator from 'react-native-tab-navigator';
-import Cart from './Cart/Cart';
+import Notify from './Notify/Notify';
 import Search from './Search/Search';
 import Home from './Home/Home';
 import Contact from './Contact/Contact';
 
 import Header from './Header';
-import iconHome from '../../../../images/appIcon/home.png';
-import iconHomeCLick from '../../../../images/appIcon/home0.png';
-import iconCart from '../../../../images/appIcon/cart.png';
-import iconCartCLick from '../../../../images/appIcon/cart0.png';
-import iconSearch from '../../../../images/appIcon/search.png';
-import iconSearchCLick from '../../../../images/appIcon/search0.png';
-import iconContact from '../../../../images/appIcon/contact.png';
-import iconContactCLick from '../../../../images/appIcon/contact0.png';
 
 import icHome from '../../../../image/House0.png';
-// import icHomeCLick from '../../../../image/home0.png';
-// import icNofity from '../../../../image/notification.png';
-// import icNofityClick from '../../../../image/notification0.png';
-// import icSearch from '../../../../image/Search.png';
-// import icSearchClick from '../../../../image/Search0.png';
-// import icContact from '../../../../image/User.png';
-// import icContactClick from '../../../../image/User0.png';
-
+import icHomeClick from '../../../../image/House.png';
+import icNofity from '../../../../image/Nofity0.png';
+import icNofityClick from '../../../../image/Nofity.png';
+import icSearch from '../../../../image/Searchh0.png';
+import icSearchClick from '../../../../image/Searchh.png';
+import icContact from '../../../../image/User0.png';
+import icContactClick from '../../../../image/User.png';
+import {connect} from 'react-redux';
+import GetUserAPI from '../../../API/User/get-User-api';
 class Shop extends Component {
   constructor(props) {
     super(props);
@@ -41,13 +34,23 @@ class Shop extends Component {
       cartArray: [],
     };
   }
-  setTab() {
+
+  setTab(text) {
     this.setState({selectedTab: 'Search'});
+    //console.log(text);
+    if (text != null) {
+      this.props.dispatch({
+        type: 'setTextSearch',
+        data: text,
+      });
+      // console.log(text);
+    }
   }
   openMenu() {
     const {open} = this.props;
     open();
   }
+
   render() {
     const {myValue} = this.props;
     return (
@@ -57,64 +60,78 @@ class Shop extends Component {
           onOpen={this.openMenu.bind(this)}
         />
 
-        <TabNavigator>
+        <TabNavigator tabBarStyle={{height: 50}}>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'Home'}
             title="Home"
             renderIcon={() => (
-              <Image source={iconHomeCLick} style={styles.iconStyleNavigator} />
+              <Image source={icHome} style={styles.iconStyleNavigator} />
             )}
             renderSelectedIcon={() => (
-              <Image source={iconHome} style={styles.iconStyleNavigator} />
+              <Image source={icHomeClick} style={styles.iconStyleNavigator} />
             )}
             selectedTitleStyle={{color: '#0B6121'}}
             onPress={() => this.setState({selectedTab: 'Home'})}>
             <Home />
           </TabNavigator.Item>
           <TabNavigator.Item
-            selected={this.state.selectedTab === 'Cart'}
-            title="Cart"
+            selected={this.state.selectedTab === 'Medical Record'}
+            title="Medical Record"
             renderIcon={() => (
-              <Image source={iconCartCLick} style={styles.iconStyleNavigator} />
+              <Image source={icNofity} style={styles.iconStyleNavigator} />
             )}
             renderSelectedIcon={() => (
-              <Image source={iconCart} style={styles.iconStyleNavigator} />
+              <Image source={icNofityClick} style={styles.iconStyleNavigator} />
             )}
             selectedTitleStyle={{color: '#0B6121'}}
-            onPress={() => this.setState({selectedTab: 'Cart'})}>
-            <Cart cartArray={this.state.cartArray} />
+            onPress={() => {
+              this.setState({selectedTab: 'Medical Record'});
+            }}>
+            <Notify cartArray={this.state.cartArray} />
           </TabNavigator.Item>
 
           <TabNavigator.Item
             selected={this.state.selectedTab === 'Search'}
             title="Search"
             renderIcon={() => (
-              <Image
-                source={iconSearchCLick}
-                style={styles.iconStyleNavigator}
-              />
+              <Image source={icSearch} style={styles.iconStyleNavigator} />
             )}
             renderSelectedIcon={() => (
-              <Image source={iconSearch} style={styles.iconStyleNavigator} />
+              <Image source={icSearchClick} style={styles.iconStyleNavigator} />
             )}
             selectedTitleStyle={{color: '#0B6121'}}
             onPress={() => this.setState({selectedTab: 'Search'})}>
-            <Search></Search>
+            <Search />
           </TabNavigator.Item>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'Contact'}
             title="Contact"
             renderIcon={() => (
+              <Image source={icContact} style={styles.iconStyleNavigator} />
+            )}
+            renderSelectedIcon={() => (
               <Image
-                source={iconContactCLick}
+                source={icContactClick}
                 style={styles.iconStyleNavigator}
               />
             )}
-            renderSelectedIcon={() => (
-              <Image source={iconContact} style={styles.iconStyleNavigator} />
-            )}
             selectedTitleStyle={{color: '#0B6121'}}
-            onPress={() => this.setState({selectedTab: 'Contact'})}>
+            onPress={() => {
+              GetUserAPI(this.props.dataLogin.accessToken)
+                .then((json) => {
+                  var DataLoginUser = JSON.parse(JSON.stringify(json));
+                  console.log('DataUser');
+                  console.log(DataLoginUser);
+                  this.props.dispatch({
+                    type: 'dataInforUser',
+                    data: DataLoginUser,
+                  });
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+              this.setState({selectedTab: 'Contact'});
+            }}>
             <Contact></Contact>
           </TabNavigator.Item>
         </TabNavigator>
@@ -124,8 +141,8 @@ class Shop extends Component {
 }
 const styles = StyleSheet.create({
   iconStyleNavigator: {
-    width: 27,
-    height: 27,
+    width: 23,
+    height: 23,
   },
   iconStyle: {
     width: 25,
@@ -155,6 +172,14 @@ const styles = StyleSheet.create({
     fontFamily: 'monospace',
     color: 'white',
   },
+  wrapperTab: {
+    height: 49,
+  },
 });
-
-export default Shop;
+function mapStateToProps(state) {
+  return {
+    dataLogin: state.dataLogin,
+    dataInforUser: state.dataInforUser,
+  };
+}
+export default connect(mapStateToProps)(Shop);

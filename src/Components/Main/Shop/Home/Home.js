@@ -3,10 +3,10 @@ import React, {Component} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import ListProduct from '../ListProductDetail/ListProduct';
-
+import DoctorDetail from '../Detail/DoctorDetail';
+import ScheduleDetail from '../Detail/ScheduleDetail';
 import HomeScreen from './HomeScreen';
-
+import postDetail from './postDetail';
 const Stack = createStackNavigator();
 
 const Home: () => React$Node = () => {
@@ -14,7 +14,9 @@ const Home: () => React$Node = () => {
     <NavigationContainer independent={true}>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="ListProduct" component={ListProduct} />
+        <Stack.Screen name="DoctorDetail" component={DoctorDetail} />
+        <Stack.Screen name="ScheduleDetail" component={ScheduleDetail} />
+        <Stack.Screen name="ListPosts" component={postDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
