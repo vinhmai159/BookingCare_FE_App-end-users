@@ -17,7 +17,7 @@ const Index = (props) => {
       GetListDoctorAPI()
         .then((json) => {
           var data = JSON.parse(JSON.stringify(json));
-          console.log(data);
+
           props.dispatch({
             type: 'setListDocter',
             data: data,
@@ -29,7 +29,7 @@ const Index = (props) => {
       var value = await AsyncStorage.getItem('@save');
       value = JSON.parse(value);
       if (value !== null) {
-        console.log(value);
+
         props.dispatch({
           type: 'setDataLogin',
           data: value,

@@ -1,5 +1,5 @@
 const GetScheduleDoctor = async (IDdoctor) => {
-  var url = 'http://192.168.1.7:3069/schedule/show-schedule';
+  var url = 'http://192.168.1.4:3069/schedule/show-schedule';
   return await fetch(url, {
     method: 'POST',
     headers: {

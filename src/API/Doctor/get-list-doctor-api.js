@@ -1,5 +1,5 @@
 const GetListDoctorAPI = async () => {
-  var url = 'http://192.168.1.7:3069/doctor';
+  var url = 'http://192.168.1.4:3069/doctor';
   return await fetch(url, {
     method: 'GET',
     headers: {

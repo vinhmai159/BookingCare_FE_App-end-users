@@ -17,14 +17,13 @@ const NotifyView = (props) => {
     async function GetData() {
       MerdicalRecordAPI(props.dataLogin.accessToken)
         .then((json) => {
-          var dataMedicalRecord = JSON.parse(JSON.stringify(json));
+          const dataMedicalRecord = JSON.parse(JSON.stringify(json));
 
-          console.log(dataMedicalRecord);
           setdataGet(dataMedicalRecord.data);
-          props.dispatch({
-            type: 'setdataMedicalRecord',
-            data: dataMedicalRecord.data,
-          });
+          // props.dispatch({
+          //   type: 'setdataMedicalRecord',
+          //   data: dataMedicalRecord.data,
+          // });
         })
         .catch((error) => {
           console.error(error);

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import imgDoc from '../../../../../image/doctor.png';
-import GetListDoctorSearch from '../../../../API/Doctor/search-doctor-api';
+ import GetListDoctorSearch from '../../../../API/Doctor/search-doctor-api';
 import {connect} from 'react-redux';
 import {useRoute} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
@@ -19,13 +19,14 @@ const SearchView = (props) => {
   const {wrapper} = styles;
   const [arraySearch, setarraySearch] = useState([]);
   const value = 'flor';
+
   const handleSearchName = () => {
-    console.log(props.textSearch);
-    GetListDoctorSearch(props.textSearch, 'name')
+//    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', props.textSearch, 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
+
+    GetListDoctorSearch('vinh', 'name')
       .then((json) => {
         var data = JSON.parse(JSON.stringify(json));
         console.log(data);
-        // console.log('sadas');
         props.dispatch({
           type: 'setDataDoctor',
           data: data,
@@ -35,7 +36,7 @@ const SearchView = (props) => {
   };
   const handleSearchExpertise = () => {
     console.log(props.textSearch);
-    GetListDoctorSearch(props.textSearch, 'expertise')
+    GetListDoctorSearch('da', 'expertise')
       .then((json) => {
         var data = JSON.parse(JSON.stringify(json));
         console.log(data);
@@ -49,7 +50,7 @@ const SearchView = (props) => {
   };
   const handleSearchHospital = () => {
     console.log(props.textSearch);
-    GetListDoctorSearch(props.textSearch, 'hospital')
+    GetListDoctorSearch('nang', 'hospital')
       .then((json) => {
         var data = JSON.parse(JSON.stringify(json));
         console.log(data);

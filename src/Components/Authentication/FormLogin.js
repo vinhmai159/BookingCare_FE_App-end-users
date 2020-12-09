@@ -25,7 +25,7 @@ const App = (props) => {
       LoginAPI(emailLogin, mkLogin)
         .then((json) => {
           var DataLoginUser = JSON.parse(JSON.stringify(json));
-          //console.log(DataLoginUser);
+
 
           if (DataLoginUser.error === 'Unauthorized') {
             Alert.alert(

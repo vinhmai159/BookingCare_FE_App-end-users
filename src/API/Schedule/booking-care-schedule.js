@@ -1,5 +1,5 @@
 const bookingCare = async (ID, token) => {
-  var url = `http://192.168.1.7:3069/booking?scheduleId=${ID}`;
+  var url = `http://192.168.1.4:3069/booking?scheduleId=${ID}`;
   return await fetch(url, {
     method: 'POST',
     headers: {

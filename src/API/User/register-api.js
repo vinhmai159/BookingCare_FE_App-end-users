@@ -1,5 +1,5 @@
 const registerAPI = async (email, firstName, lastName, password) => {
-  var url = 'http://192.168.1.7:3069/user/create/';
+  var url = 'http://192.168.1.4:3069/user/create/';
   return await fetch(url, {
     method: 'POST',
     headers: {

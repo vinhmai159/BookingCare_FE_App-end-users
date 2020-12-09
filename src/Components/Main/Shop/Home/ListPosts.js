@@ -56,11 +56,19 @@ const ListPosts: () => React$Node = () => {
               <View>
                 <View style={styles.wrapperTextUnder}>
                   <Text style={styles.textHeader}>Categories: </Text>
-                  <Text style={styles.textHeader}>{e.categories[0].name}</Text>
+                  {e.categories.length === 0
+                  ? <Text style={styles.textHeader}></Text> 
+                  : e.categories.map((item) => {
+                    <Text style={styles.textHeader}>item.name</Text>
+                  })}
                 </View>
                 <View style={styles.wrapperTextUnder}>
                   <Text style={styles.textHeader}>Tags: </Text>
-                  <Text style={styles.textHeader}>{e.tags[0].name}</Text>
+                  {e.tags.length === 0
+                  ? <Text style={styles.textHeader}></Text> 
+                  : e.tags.map((item) => {
+                    <Text style={styles.textHeader}>item.name</Text>
+                  })}
                 </View>
               </View>
               <View style={styles.wrapperTextUnder}>
