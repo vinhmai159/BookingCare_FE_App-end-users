@@ -116,8 +116,8 @@ const ScheduleDetail = (props) => {
           navigation.navigate('DoctorDetail');
         } else {
           Alert.alert(
-            'Nofity',
-            'Error: ',
+            'Nofity:',
+            'Error: Can not booking this date.',
 
             [
               {
@@ -139,7 +139,7 @@ const ScheduleDetail = (props) => {
         }
       })
       .catch((error) => {
-        console.error(error);
+        Alert.alert(error.response.data.message)
       });
   };
   return (

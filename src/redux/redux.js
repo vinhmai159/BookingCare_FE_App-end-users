@@ -13,6 +13,7 @@ var dataInforUser = {};
 var ListDocter = [];
 var textSearch = '';
 var dataDoctor = [];
+var SchedulesData =[];
 var arrChedule = {
   MONDAY: [],
   TUESDAY: [],
@@ -42,6 +43,10 @@ var dataMedicalRecord = [
     user: [''],
   },
 ];
+const SchedulesDataReducer = (state = SchedulesData, action) => {
+  if (action.type === 'setSchedulesData') return action.data;
+  return state;
+};
 const dataMedicalRecordReducer = (state = dataMedicalRecord, action) => {
   if (action.type === 'setdataMedicalRecord') {
     return action.data;
@@ -107,6 +112,7 @@ const reducer = combineReducers({
   dataDoctor: dataDoctorReducer,
   arrChedule: arrCheduleReducer,
   dataMedicalRecord: dataMedicalRecordReducer,
+  SchedulesData: SchedulesDataReducer,
 });
 const store = createStore(reducer);
 

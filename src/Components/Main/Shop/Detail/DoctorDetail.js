@@ -22,6 +22,7 @@ const DoctorDetail = (props) => {
     addressDetail,
     email,
     expertise,
+    hospital
   } = route.params.e;
   const handlerBooking = () => {
     navigation.navigate('ScheduleDetail', {
@@ -69,14 +70,21 @@ const DoctorDetail = (props) => {
         <View style={styles.wrapperTextFull}>
           <Text style={styles.textStyle}>EXPERTISE: </Text>
           <View style={styles.FormText}>
-            <Text style={styles.textStyle}>{expertise.name}</Text>
+            <Text style={styles.textStyle}>{expertise && expertise.name}</Text>
           </View>
         </View>
+
+        <View style={styles.wrapperTextFull}>
+                  <Text style={styles.textStyle}>HOSPITAL: </Text>
+                  <View style={styles.FormText}>
+                    <Text style={styles.textStyle}>{hospital && hospital.name}</Text>
+                  </View>
+                </View>
 
         <View style={styles.wrapperTextFull2}>
           <Text style={styles.textStyle}>DESCRIPTION: </Text>
           <View style={styles.FormText}>
-            <Text style={styles.textStyle}>{description}</Text>
+            <Text style={styles.textStyle}>{description || null}</Text>
           </View>
         </View>
         <TouchableOpacity

@@ -9,6 +9,7 @@ import Orderhistory from './Orderhistory/Orderhistory';
 import AsyncStorage from '@react-native-community/async-storage';
 import {connect} from 'react-redux';
 import GetListDoctorAPI from '../API/Doctor/get-list-doctor-api';
+import Schedule from "./Schedule/Schedule"
 const Stack = createStackNavigator();
 
 const Index = (props) => {
@@ -46,6 +47,7 @@ const Index = (props) => {
         <Stack.Screen name="Authentication" component={Authentication} />
         <Stack.Screen name="ChangeInfor" component={ChangeInfor} />
         <Stack.Screen name="Orderhistory" component={Orderhistory} />
+        <Stack.Screen name="Schedule" component={Schedule} />
       </Stack.Navigator>
     </NavigationContainer>
   );

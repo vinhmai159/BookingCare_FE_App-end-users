@@ -4,7 +4,7 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {connect} from 'react-redux';
 import setDataLogin from '../../../AsyncStorage/SaveDataLogin';
-
+import getUserSchedules from "../../../API/User/get-user-schedules-api"
 const Login = (props) => {
   const navigation = useNavigation();
   const handleLogOut = () => {
@@ -30,10 +30,27 @@ const Login = (props) => {
     setDataLogin('');
   };
 
+  const HandleSchedules = () => {
+     getUserSchedules(props.dataLogin.accessToken).then((json) => {
+      const data = JSON.parse(JSON.stringify(json));
+
+       props.dispatch({
+         type: 'setSchedulesData',
+         data: data,
+       });
+      navigation.navigate('Schedule');
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    // console.log(props.dataLogin.accessToken);
+   
+  }
+
   return (
     <View style={{paddingTop: 100, alignItems: 'center'}}>
-      <TouchableOpacity style={styles.Button}>
-        <Text style={styles.Text}>A</Text>
+      <TouchableOpacity style={styles.Button} onPress={HandleSchedules}>
+        <Text style={styles.Text}>Schedules</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
